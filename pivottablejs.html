@@ -1,0 +1,952 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PivotTable.js</title>
+
+        <!-- external libs from cdnjs -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/d3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/c3_renderers.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/export_renderers.min.js"></script>
+
+        <style>
+            body {font-family: Verdana;}
+            .node {
+              border: solid 1px white;
+              font: 10px sans-serif;
+              line-height: 12px;
+              overflow: hidden;
+              position: absolute;
+              text-indent: 2px;
+            }
+            .c3-line, .c3-focused {stroke-width: 3px !important;}
+            .c3-bar {stroke: white !important; stroke-width: 1;}
+            .c3 text { font-size: 12px; color: grey;}
+            .tick line {stroke: white;}
+            .c3-axis path {stroke: grey;}
+            .c3-circle { opacity: 1 !important; }
+            .c3-xgrid-focus {visibility: hidden !important;}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(function(){
+                if(window.location != window.parent.location)
+                    $("<a>", {target:"_blank", href:""})
+                        .text("[pop out]").prependTo($("body"));
+
+                $("#output").pivotUI(
+                    $.csv.toArrays($("#output").text()),
+                    $.extend({
+                        renderers: $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers,
+                            $.pivotUtilities.export_renderers
+                            ),
+                        hiddenAttributes: [""]
+                    }, {})
+                ).show();
+             });
+        </script>
+        <div id="output" style="display: none;">,book,author,year,type,reviews
+0,It Ends with Us,Colleen Hoover,2016,Paperback,169440
+1,Atomic Habits,James Clear,2018,Hardcover,84145
+2,Ugly Love,Colleen Hoover,2014,Paperback,82376
+3,The Body Keeps the Score,Bessel van der Kolk M.D.,2015,Paperback,55972
+4,The Seven Husbands of Evelyn Hugo,Taylor Jenkins Reid,2018,Paperback,125228
+5,November 9,Colleen Hoover,2015,Paperback,38062
+6,Little Blue Truck's Halloween,Alice Schertle,2016,Board book,11760
+7,Harry Potter Paperback Box Set (Books 1-7),J. K. Rowling,2009,Paperback,91667
+8,My First Library,Wonder House Books,2018,Board book,62765
+9,Confess,Colleen Hoover,2015,Paperback,17514
+10,The Wonderful Things You Will Be,Emily Winfield Martin,2015,Hardcover,25168
+11,I Love You to the Moon and Back,Amelia Hepworth,2015,Board book,60120
+12,Maybe Someday (1),Colleen Hoover,2014,Paperback,13468
+13,What to Expect When You're Expecting,Heidi Murkoff,2016,Paperback,29394
+14,The 5 Love Languages,Gary Chapman,2015,Paperback,69898
+15,Luckiest Girl Alive,Jessica Knoll,2016,Paperback,8168
+16,"World of Eric Carle, Around the Farm 30-Button Animal Sound Book - Great for First Words - PI Kids",PI Kids,2013,Hardcover,18133
+17,Regretting You,Colleen Hoover,2019,Paperback,60707
+18,"The Alchemist, 25th Anniversary",Paulo Coelho,2014,Paperback,94790
+19,Adult Children of Emotionally Immature Parents,Lindsay C. Gibson,2015,Paperback,13438
+20,Spooky Pookie (Little Pookie),Sandra Boynton,2017,Board book,7226
+21,The Subtle Art of Not Giving a F*ck,Mark Manson,2016,Hardcover,80357
+22,"School Zone - Big Preschool Workbook - 320 Pages, Ages 3 to 5, Colors, Shapes, Numbers, Early Math, Alphabet, Pre-Writing, Phonics, Following Directions, and More (School Zone Big Workbook Series)",School Zone,2018,Paperback,66871
+23,101 Essays That Will Change The Way You Think,Brianna Wiest,2018,Paperback,9633
+24,J.R.R. Tolkien 4-Book Boxed Set,J.R.R. Tolkien,2012,Mass Market Paperback,20261
+25,Publication Manual (OFFICIAL) 7th Edition of the American Psychological Association,American Psychological Association,2019,Paperback,28595
+26,All Your Perfects,Colleen Hoover,2018,Paperback,18742
+27,Maybe Not,Colleen Hoover,2015,Paperback,5024
+28,"The Boy, the Mole, the Fox and the Horse",Charlie Mackesy,2019,Hardcover,108256
+29,A Game of Thrones / A Clash of Kings / A Storm of Swords / A Feast of Crows / A Dance with Dragons,George R. R. Martin,2013,Mass Market Paperback,33335
+30,How to Catch a Monster,Adam Wallace,2017,Hardcover,2160
+31,"Dr. Seuss's Beginner Book Collection (Cat in the Hat, One Fish Two Fish, Green Eggs and Ham, Hop on Pop, Fox in Socks)",Dr. Seuss,2009,Hardcover,21318
+32,If Animals Kissed Good Night,Ann Whitford Paul,2014,Board book,69559
+33,Where the Crawdads Sing,Delia Owens,2018,Hardcover,345296
+34,First Little Readers Parent Pack,Deborah Schecter,2010,Paperback,27337
+35,Extreme Ownership,Jocko Willink,2017,Hardcover,26095
+36,Attached,Amir Levine,2012,Paperback,13383
+37,Chicka Chicka Boom Boom (Board Book),John Archambault,2012,Board book,33578
+38,Don't Push the Button! A Halloween Treat,Bill Cotter,2018,Board book,1753
+39,Nostradamus,Mario Reading,2015,Paperback,743
+40,Can't Hurt Me,David Goggins,2018,Paperback,60816
+41,12 Rules for Life,Jordan B. Peterson,2019,Paperback,58108
+42,Tell Me Lies,Carola Lovering,2019,Paperback,1920
+43,It Didn't Start with You,Mark Wolynn,2017,Paperback,7649
+44,Pop-Up Peekaboo! Pumpkin,DK,2016,Board book,1980
+45,Dog Man,Dav Pilkey,2019,Hardcover,8348
+46,How to Catch a Unicorn,Adam Wallace,2019,Hardcover,32118
+47,Where the Wild Things Are,Maurice Sendak,2012,Hardcover,32060
+48,How to Catch a Mermaid,Adam Wallace,2018,Hardcover,29846
+49,You're My Little Pumpkin Pie,,2018,Board book,3520
+50,Boundaries Updated and Expanded Edition,Henry Cloud,2017,Paperback,22293
+51,The Hobbit And The Lord Of The Rings,J.R.R. Tolkien,2014,Hardcover,9898
+52,Meet Your Strawman,David E. Robinson,2013,Paperback,5089
+53,Berserk Deluxe Volume 1,,2019,Hardcover,11235
+54,Then She Was Gone,Lisa Jewell,2018,Paperback,50002
+55,"See, Touch, Feel",Roger Priddy,2018,Hardcover,8856
+56,Raising Good Humans,Hunter Clarke-Fields MSAE,2019,Paperback,3359
+57,The Big Book of Silly Jokes for Kids,Carole P. Roman,2019,Paperback,20578
+58,Harry Potter and the Sorcerer's Stone,J.K. Rowling,2015,Hardcover,21530
+59,Trapped in a Video Game,Dustin Brady,2019,Paperback,7917
+60,The Baby-sitters Club Graphic Novels #1-7,,2019,Paperback,5332
+61,Trace Letters,Sujatha Lalgudi,2019,Paperback,19261
+62,The Complete Summer I Turned Pretty Trilogy,Jenny Han,2013,Paperback,5244
+63,Guess How Much I Love You,,2019,Board book,8810
+64,The Whole-Brain Child,Daniel J. Siegel,2012,Paperback,14694
+65,D&D Monster Manual (Dungeons & Dragons Core Rulebook),,2014,Hardcover,22542
+66,The Daily Stoic,Ryan Holiday,2016,Hardcover,23365
+67,The Spooky Wheels on the Bus,J. Elizabeth Mills,2010,Paperback,6650
+68,"The Giver (Giver Quartet, 1)",Lois Lowry,2014,Paperback,26271
+69,The Care and Keeping of You,,2012,Paperback,24545
+70,Dare to Lead,Brené Brown,2018,Hardcover,16700
+71,Architectural Digest at 100,Architectural Digest,2019,Hardcover,1742
+72,Half Baked Harvest Super Simple,Tieghan Gerard,2019,Hardcover,11460
+73,Love and Other Words,Christina Lauren,2018,Paperback,14662
+74,Archer's Voice,Mia Sheridan,2018,Paperback,14855
+75,If You Give a Mouse a Cookie,Laura Numeroff,2015,Hardcover,10881
+76,The Lost Book of Herbal Remedies,Claude Davis,2019,Paperback,13293
+77,Creepy Carrots! (Creepy Tales!),Aaron Reynolds,2012,Hardcover,4097
+78,The Dialectical Behavior Therapy Skills Workbook,Matthew McKay PhD,2019,Paperback,7426
+79,SAT Prep Black Book,Mike Barrett,2017,Paperback,4432
+80,Traction,Gino Wickman,2012,Paperback,5991
+81,How to Catch a Dinosaur,Adam Wallace,2019,Hardcover,11862
+82,The Nightingale,Kristin Hannah,2017,Paperback,99990
+83,Too Late,,2016,Paperback,19162
+84,The Silmarillion,J.R.R. Tolkien,2014,Paperback,14486
+85,Braiding Sweetgrass,Robin Wall Kimmerer,2015,Paperback,13854
+86,Paint by Sticker Kids,Workman Publishing,2019,Paperback,2706
+87,The All New Ball Book Of Canning And Preserving,,2016,Paperback,9976
+88,The Seven Principles for Making Marriage Work,Nan Silver,2015,Paperback,10792
+89,The Anatomy Coloring Book,,2013,Paperback,11656
+90,Emotional Intelligence 2.0,Travis Bradberry,2009,Hardcover,10434
+91,Official SAT Study Guide 2020 Edition,The College Board,2019,Paperback,13767
+92,"What Should Danny Do? (The Power to Choose Series) (The Power to Choose, 1)",Adir Levy,2017,Hardcover,22173
+93,Never Split the Difference,Chris Voss,2016,Hardcover,28519
+94,The Day the Crayons Quit,Drew Daywalt,2013,Hardcover,19901
+95,Air Fryer Cookbook,Jenson William,2019,Paperback,37037
+96,My First Complete Learning Library,Wonder House Books,2019,Board book,12116
+97,Hopeless,Colleen Hoover,2013,Paperback,27893
+98,Corduroy,Don Freeman,2014,Board book,16072
+99,All About Love,bell hooks,2018,Paperback,8182
+100,My First Book of Pencil Control,,2018,Paperback,21566
+101,Start with Why,Simon Sinek,2011,Paperback,25671
+102,"DBT® Skills Training Handouts and Worksheets, Second Edition",Marsha M. Linehan,2014,Spiral-bound,7263
+103,The Song of Achilles,Madeline Miller,2012,Paperback,53847
+104,The Wonky Donkey,Craig Smith,2010,Paperback,74747
+105,It's Not Summer Without You,Jenny Han,2011,Paperback,13602
+106,Indestructibles,Maddie Frost,2018,Paperback,6717
+107,The First 90 Days,,2013,Hardcover,7164
+108,"Salt, Fat, Acid, Heat",Samin Nosrat,2017,Hardcover,20626
+109,Magnolia Table,Joanna Gaines,2018,Hardcover,32332
+110,Badass Affirmations,Becca Anderson,2018,Paperback,6409
+111,Beautiful Boards,Maegan Brown,2019,Hardcover,8786
+112,The Snowman's Song,Marilee Joy Mayfield,2019,Hardcover,2585
+113,"School Zone - Get Ready Flash Cards Multiplication & Division 2 Pack - Ages 8 to 9, 3rd Grade, 4th Grade, Multiplication 0-12, Division 0-12, Elementary Math, and More",,2019,Mass Market Paperback,7990
+114,The UCC Connection,David E. Robinson,2013,Paperback,3848
+115,What If?,Randall Munroe,2014,Hardcover,18846
+116,Boo Halloween Lift-a-Flap Board Book Ages 0-4 (Peek-A-Flap),Rosa Von Feder,2017,Hardcover,1828
+117,The Complete Cookbook for Young Chefs,,2018,Hardcover,19198
+118,Go the F**k to Sleep,Adam Mansbach,2011,Hardcover,20248
+119,The Art of War (Deluxe Hardbound Edition),,2018,Hardcover,2389
+120,"50 States, 5,000 Ideas",National Geographic,2017,Paperback,14080
+121,Expecting Better,Emily Oster,2014,Paperback,6251
+122,Hoot Howl Halloween 10-Button Sound Book for Little Trick-Or-Treaters (Interactive Children's Sound Book with 10 Spooky Sounds),Parragon Books,2018,Board book,2209
+123,It's OK That You're Not OK,Megan Devine,2017,Paperback,8391
+124,Let That Sh*t Go,Monica Sweeney,2018,Paperback,28778
+125,"NIV, Adventure Bible, Hardcover, Full Color",,2013,Hardcover,6357
+126,We'll Always Have Summer (The Summer I Turned Pretty),Jenny Han,2012,Paperback,11768
+127,New Morning Mercies,Paul David Tripp,2014,Hardcover,10884
+128,Make Your Bed,,2017,Hardcover,29881
+129,8 Little Planets,Chris Ferrie,2018,Board book,5005
+130,A Long Walk to Water,Linda Sue Park,2011,Paperback,16141
+131,Wonder,R. J. Palacio,2012,Hardcover,35703
+132,Cracking the Coding Interview,Gayle Laakmann McDowell,2015,Paperback,7647
+133,We're Pregnant! The First Time Dad's Pregnancy Handbook,Adrian Kulp,2018,Paperback,10703
+134,The Complete Anti-Inflammatory Diet for Beginners,Dorothy Calimeris,2017,Paperback,14412
+135,Mama Bear Apologetics™,Hillary Morgan Ferrer,2019,Paperback,3616
+136,What to Expect the First Year,Heidi Murkoff,2014,Paperback,11763
+137,From Crook to Cook,,2018,Hardcover,30345
+138,The Complete Illustrated Children's Bible (The Complete Illustrated Children’s Bible Library),,2014,Hardcover,10157
+139,"Thinking, Fast and Slow",Daniel Kahneman,2013,Paperback,29740
+140,Breaking The Habit of Being Yourself,,2013,Paperback,12050
+141,Birthday Girl,Penelope Douglas,2018,Paperback,28221
+142,The Complete Mediterranean Cookbook,America's Test Kitchen,2016,Paperback,16802
+143,Chronicles of Narnia Box Set,C. S. Lewis,2010,Paperback,14751
+144,Wish,Barbara O'Connor,2017,Paperback,13622
+145,Berserk Deluxe Volume 2,,2019,Hardcover,7195
+146,Losing Hope,Colleen Hoover,2013,Paperback,7328
+147,Creepy Pair of Underwear! (Creepy Tales!),Aaron Reynolds,2017,Hardcover,4170
+148,Saunders Comprehensive Review for the NCLEX-RN® Examination,,2019,Paperback,12584
+149,The Warning,Christine Watkins,2019,Paperback,4719
+150,The Book of Unusual Knowledge,Publications International Ltd.,2012,Hardcover,13486
+151,"The Mortal Instruments, the Complete Collection(City of Bones/ City of Ashes/ City of Glass/ City of Fallen Angels/ City of Lost Souls/ City of Heavenly Fire)",Cassandra Clare,2015,Paperback,5430
+152,"The Invisible String (The Invisible String, 1)",Patrice Karst,2018,Paperback,17622
+153,The Scarecrow,Beth Ferry,2019,Hardcover,1439
+154,Principles,Ray Dalio,2017,Hardcover,12020
+155,Baby University Board Book Set,Chris Ferrie,2017,Board book,5443
+156,"Merriam-Webster's Pocket Dictionary, Newest Edition, (Flexi Paperback) (Pocket Reference Library)",,2015,Flexibound,6827
+157,"Ugly’s Electrical References, 2020 Edition",Charles R. Miller,2019,Spiral-bound,7622
+158,Pete the Cat,James Dean,2017,Paperback,4225
+159,Harry Potter and the Goblet of Fire,J. K. Rowling,2019,Hardcover,24888
+160,"I Will Teach You to Be Rich, Second Edition",Ramit Sethi,2019,Paperback,11722
+161,The Book with No Pictures,B. J. Novak,2014,Hardcover,16885
+162,The Obesity Code - Unlocking the Secrets of Weight Loss (Book 1),Dr. Jason Fung,2016,Paperback,25544
+163,The Sacred Mushroom and The Cross,,2009,Paperback,1274
+164,One True Loves,Taylor Jenkins Reid,2016,Paperback,10144
+165,"NIV, The Woman's Study Bible, Hardcover, Full-Color",,2018,Hardcover,11008
+166,Berserk Deluxe Volume 3,Kentaro Miura,2019,Hardcover,5191
+167,Crystals for Beginners,Karen Frazier,2017,Paperback,36018
+168,"Celebrate Your Body (and Its Changes, Too!)",Sonya Renee Taylor,2018,Paperback,15788
+169,Flash Cards,,2018,Cards,2676
+170,All the Light We Cannot See,Anthony Doerr,2017,Paperback,67306
+171,Eat to Beat Disease,,2019,Hardcover,6719
+172,The Artist's Way,Julia Cameron,2016,Paperback,6640
+173,Nonviolent Communication,,2015,Paperback,7316
+174,Happy Birthday from The Very Hungry Caterpillar (The World of Eric Carle),Eric Carle,2019,Hardcover,3683
+175,The Color Monster,Anna Llenas,2018,Hardcover,7642
+176,Quiet,Susan Cain,2013,Paperback,20024
+177,A Little Life,Hanya Yanagihara,2016,Paperback,22105
+178,The Coaching Habit,Michael Bungay Stanier,2016,Paperback,8417
+179,That Bird Has My Wings,Jarvis Jay Masters,2010,Paperback,248
+180,The Art of Mixology,Parragon Books,2018,Hardcover,7947
+181,Amulet #1-8 Box Set,Kazu Kibuishi,2018,Paperback,3592
+182,Born a Crime,Trevor Noah,2019,Paperback,48459
+183,Merriam-Webster’s Elementary Dictionary,,2018,Hardcover,10253
+184,Dahmer's Confession,John Borowski,2017,Paperback,80
+185,Half Baked Harvest Cookbook,Tieghan Gerard,2017,Hardcover,6631
+186,The Overstory,,2019,Paperback,16419
+187,The Bad Guys Box Set,Aaron Blabey,2018,Paperback,5985
+188,Retrain Your Brain,Seth J. Gillihan PhD,2016,Paperback,7030
+189,Potty Training in 3 Days,Brandi Brucks,2016,Paperback,13180
+190,Sapiens,,2018,Paperback,65806
+191,The Mamba Mentality,Kobe Bryant,2018,Hardcover,23662
+192,The Total Money Makeover,Dave Ramsey,2013,Hardcover,24433
+193,Discerning the Voice of God - Bible Study Book Revised - How to Recognize When God Speak,Priscilla Shirer,2017,Paperback,4679
+194,The Hobbit,J. R. R. Tolkien,2012,Paperback,32322
+195,Merriam-Webster’s Everyday Language Reference Set,,2016,Paperback,7579
+196,Uzumaki (3-in-1 Deluxe Edition) (Junji Ito),,2013,Hardcover,16762
+197,Culturally Responsive Teaching and The Brain,,2014,Paperback,3035
+198,Pharm Phlash!,,2017,Cards,4321
+199,365 Bedtime Stories and Rhymes,Cottage Door Press,2018,Hardcover,13822
+200,Harry Potter and the Chamber of Secrets,J. K. Rowling,2016,Hardcover,13327
+201,The One and Only Ivan,,2015,Paperback,19876
+202,Without Merit,Colleen Hoover,2017,Paperback,5565
+203,Rich Dad Poor Dad,Robert T. Kiyosaki,2017,Mass Market Paperback,94149
+204,Bringing Up Bébé,Pamela Druckerman,2014,Paperback,4222
+205,The World of Ice & Fire,George R. R. Martin,2014,Hardcover,7640
+206,Restart,Gordon Korman,2018,Paperback,7517
+207,Why a Daughter Needs a Dad,Gregory E. Lang,2019,Hardcover,12700
+208,When Breath Becomes Air,Paul Kalanithi,2016,Hardcover,29349
+209,Mere Christianity,C. S. Lewis,2015,Paperback,13466
+210,Oh Crap! Potty Training,Jamie Glowacki,2015,Paperback,11516
+211,Refugee,Alan Gratz,2017,Hardcover,7743
+212,"Goodbye Summer, Hello Autumn",Kenard Pak,2016,Hardcover,1306
+213,Daniel Tiger's Potty Time! Children's Toilet Training Sound Book for Daniel Tiger Fans (Daniel Tiger Neighborhood),Cottage Door Press,2019,Board book,16509
+214,"Python Crash Course, 2nd Edition",Eric Matthes,2019,Paperback,7507
+215,Just Mercy,Bryan Stevenson,2015,Paperback,22867
+216,The Little Blue Box of Bright and Early Board Books by Dr. Seuss,Dr. Seuss,2012,Board book,13753
+217,National Electrical Code 2020,,2019,Paperback,2005
+218,You Are a Badass,Jen Sincero,2013,Paperback,35420
+219,Cursive Handwriting Workbook For Kids,Sujatha Lalgudi,2019,Paperback,11607
+220,Ikigai,Héctor García,2017,Hardcover,40056
+221,Where the Sidewalk Ends Special Edition with 12 Extra Poems,Shel Silverstein,2014,Hardcover,6921
+222,"Hello, Baby Animals (High-Contrast Books)",,2016,Board book,4311
+223,The Obstacle Is the Way,Ryan Holiday,2014,Hardcover,13482
+224,Grumpy Monkey,Suzanne Lang,2018,Hardcover,22890
+225,"Good Night, Little Blue Truck",Alice Schertle,2019,Hardcover,14560
+226,In the Realm of Hungry Ghosts,,2010,Paperback,4024
+227,"I'm Dead, Now What?",Peter Pauper Press,2015,Hardcover-spiral,9879
+228,Designing Data-Intensive Applications,Martin Kleppmann,2017,Paperback,3236
+229,Throne of Glass Box Set,Sarah J. Maas,2018,Hardcover,5151
+230,The Never Girls Collection #1 (Disney,Kiki Thorpe,2013,Paperback,12394
+231,Harry Potter and the Prisoner of Azkaban,,2017,Hardcover,13880
+232,Complete Guide To Fasting,Dr. Jason Fung,2016,Paperback,16812
+233,Becoming Supernatural,,2019,Paperback,15135
+234,Maybe,Kobi Yamada,2019,Hardcover,5778
+235,"I Am Confident, Brave & Beautiful",Hopscotch Girls,2017,Paperback,32100
+236,Guy Stuff,Cara Natterson,2017,Paperback,8290
+237,Elephant & Piggie,Mo Willems,2018,Hardcover,4022
+238,Pretty and Reckless,Charity Ferrell,2017,Paperback,1463
+239,The Screwtape Letters (Front Cover may vary),C. S. Lewis,2015,Paperback,11726
+240,Chakra Healing,Margarita Alcantara,2017,Paperback,25190
+241,The Road Back to You,Ian Morgan Cron,2016,Hardcover,10502
+242,Teaching Reading Sourcebook (Core Literacy Library),,2019,Paperback,723
+243,I Am a Big Brother (Caroline Jayne Church),Caroline Jayne Church,2015,Hardcover,14823
+244,Imagine Heaven,John Burke,2015,Paperback,9685
+245,A Gentleman in Moscow,Amor Towles,2019,Paperback,50232
+246,The Secret Lake,Karen Inglis,2011,Paperback,14935
+247,"Ricky, the Rock That Couldn't Roll (You Rock Group)",Mr. Jay,2018,Hardcover,2730
+248,"365 Bible Stories and Prayers Padded Treasury - Gift for Easter, Christmas, Communions, Baptism, Birthdays, Ages 3-8",Cottage Door Press,2018,Hardcover,7313
+249,We Don't Eat Our Classmates (A Penelope Rex Book),Ryan T. Higgins,2018,Hardcover,5836
+250,Milk and Honey,Rupi Kaur,2015,Paperback,46429
+251,"Oh, Baby, the Places You'll Go!",Tish Rabe,2015,Hardcover,5262
+252,Designing Your Life,Bill Burnett,2016,Hardcover,3554
+253,Perfect Peace,Daniel Black,2011,Paperback,2137
+254,There Was an Old Lady Who Swallowed Some Leaves!,Lucille Colandro,2010,Paperback,2125
+255,"Spectrum 3rd Grade Math Workbooks, Multiplication, Division, Fractions, Addition and Subtraction With 4-Digit Numbers, Graphing, Spectrum Grade 3 Math Workbook for Classroom or Homeschool Curriculum",,2014,Paperback,3711
+256,P is for Potty! (Sesame Street) (Lift-the-Flap),,2014,Board book,28293
+257,Fish in a Tree,Lynda Mullaly Hunt,2017,Paperback,7827
+258,The Maze Runner Series Complete Collection Boxed Set (5-Book),James Dashner,2017,Paperback,8790
+259,Baby Sign Language Made Easy,Lane Rebelo,2018,Paperback,9318
+260,Daring Greatly,Brené Brown,2015,Paperback,11625
+261,Out of My Mind,Sharon M. Draper,2012,Paperback,10441
+262,Eight Dates,,2019,Hardcover,3968
+263,The Millionaire Next Door,Thomas J. Stanley,2010,Paperback,10706
+264,The Care and Keeping of You 2,Cara Natterson,2013,Paperback,12499
+265,Tartine Bread,Chad Robertson,2010,Hardcover,5585
+266,Leaders Eat Last,Simon Sinek,2017,Paperback,11310
+267,Flour Water Salt Yeast,Ken Forkish,2012,Hardcover,12732
+268,The 7 Habits of Highly Effective Teens,Sean Covey,2014,Paperback,11738
+269,Master Your Emotions,Thibaut Meurisse,2018,Paperback,6955
+270,The Complete Guide to Pressure Canning,Diane Devereaux - The Canning Diva,2018,Paperback,10047
+271,The Things They Carried,Tim O'Brien,2009,Paperback,7616
+272,"An Elephant & Piggie Biggie! (Elephant and Piggie Book, An)",Mo Willems,2017,Hardcover,9026
+273,Now You Are One,Minnie Birdsong,2017,Board book,15895
+274,Little Blue Truck's Christmas,Alice Schertle,2014,Board book,15108
+275,The Screaming Goat (Book & Figure),,2016,Paperback,30152
+276,The Silent Patient,Alex Michaelides,2019,Hardcover,135281
+277,P Is for Pterodactyl,Raj Haldar,2018,Hardcover,9002
+278,If We Were Villains,M. L. Rio,2018,Paperback,5372
+279,Classic Chapter Book Collection (Pokémon),,2017,Paperback,3758
+280,"The Merriam-Webster Dictionary, Mass-Market Paperback",,2016,Mass Market Paperback,10703
+281,"What Should Danny Do? School Day (The Power to Choose Series) (Power to Choose, 2)",Adir Levy,2018,Hardcover,10062
+282,Punk 57,Penelope Douglas,2016,Paperback,30953
+283,The Great Alone,Kristin Hannah,2019,Paperback,44715
+284,"Wings of Fire Box Set, The Jade Mountain Prophecy (Books 6-10)",Tui T. Sutherland,2019,Paperback,4844
+285,My Weird School 21-Book Box Set,Dan Gutman,2011,Paperback,2067
+286,Mercy Watson Boxed Set,Kate DiCamillo,2011,Paperback,2681
+287,"Jesus Calling, Small Brown Leathersoft, with Scripture References",Sarah Young,2015,Imitation Leather,9190
+288,The Way of the Superior Man,David Deida,2017,Paperback,9417
+289,"Rose Book of Bible Charts, Maps, and Time Lines",,2015,Spiral-bound,5599
+290,101 Lunchbox Notes with Laugh-Out-Loud Jokes for Kids,,2019,Paperback,2089
+291,Emotionally Healthy Spirituality,Peter Scazzero,2017,Paperback,4803
+292,The Little Old Lady Who Was Not Afraid of Anything,Megan Lloyd,2019,Paperback,5257
+293,The Complete Baking Book for Young Chefs,,2019,Hardcover,8883
+294,Trick Or Treat Little Pumpkin Finger Puppet Halloween Board Book Ages 0-4 (Children's Interactive Finger Puppet Board Book),Cottage Door Press,2019,Board book,1115
+295,The War of Art,Steven Pressfield,2012,Paperback,14229
+296,The Whole30,Dallas Hartwig,2015,Hardcover,15539
+297,Grit,Angela Duckworth,2018,Paperback,12521
+298,The Kite Runner,Khaled Hosseini,2013,Paperback,22584
+299,Michael Vey,Richard Paul Evans,2012,Paperback,2638
+300,Mastering the Art of French Cooking (2 Volume Set),Julia Child,2009,Hardcover,4763
+301,The Pigeon HAS to Go to School!,Mo Willems,2019,Hardcover,10802
+302,First 100 Words,Roger Priddy,2011,Board book,35245
+303,Why We Sleep,Matthew Walker,2018,Paperback,19754
+304,"Mind Over Mood, Second Edition",Dennis Greenberger,2015,Paperback,4949
+305,Why a Daughter Needs a Mom,Gregory E. Lang,2019,Hardcover,3357
+306,"The Complete After Series Collection 5 Books Box Set by Anna Todd (After Ever Happy, After, After We Collided, After We Fell, Before)",Anna Todd,2019,Paperback,14669
+307,Finding Cinderella,Colleen Hoover,2014,Paperback,8745
+308,Eek! Halloween! (Boynton on Board),Sandra Boynton,2016,Board book,2803
+309,Halloween Hidden Pictures Puzzles to Highlight (Highlights™ Hidden Pictures® Puzzles to Highlight Activity Books),,2018,Paperback,1780
+310,I Am a Big Sister (Caroline Jayne Church),Caroline Jayne Church,2015,Hardcover,13595
+311,"KJV Holy Bible, Large Print Compact, Saddle Tan Faux Leather w/Ribbon Marker, Red Letter, King James Version",,2017,Imitation Leather,13926
+312,Girl in Pieces,Kathleen Glasgow,2018,Paperback,11885
+313,National Geographic Little Kids First Big Book of Why (National Geographic Little Kids First Big Books),Amy Shields,2011,Hardcover,17841
+314,Dog Man,Dav Pilkey,2017,Hardcover,9742
+315,Roald Dahl Collection 16 Books Box Set,Roald Dahl,2018,Paperback,4487
+316,How to Talk So Kids Will Listen & Listen So Kids Will Talk (The How To Talk Series),Adele Faber,2012,Paperback,9365
+317,Advanced Placement World History,,2019,Paperback,1887
+318,One Piece Box Set,Eiichiro Oda,2013,Paperback,2361
+319,Prayer Journal for Women,Shannon Roberts,2019,Paperback,42424
+320,Disney Minnie Mouse - I'm Ready to Read with Minnie Interactive Read-Along Sound Book - Great for Early Readers - PI Kids,,2013,Hardcover,11156
+321,BY Colleen Hoover It Ends With Us and Ugly Love two books combo,Colleen Hoover,2016,Paperback,582
+322,If You Tell,Gregg Olsen,2019,Paperback,62764
+323,How Not to Die,Michael Greger M.D. FACLM,2015,Hardcover,21513
+324,The Absolutely True Diary of a Part-Time Indian,Sherman Alexie,2009,Paperback,7009
+325,"Spectrum 5th Grade Math Workbook, Fractions, Decimals, Algebra Prep, Geometry, Graphing, Perimeter, Area, and Volume, Classroom or Homeschool Curriculum",,2014,Paperback,4984
+326,I Can Do Hard Things,Gabi Garcia,2018,Paperback,5340
+327,Untangled,Lisa Damour Ph.D.,2017,Paperback,3241
+328,The Book on Rental Property Investing,Brandon Turner,2015,Paperback,6230
+329,"5,000 Awesome Facts (About Everything!)",,2012,Hardcover,19079
+330,Marvel Spider-Man Look and Find Activity Book - PI Kids,,2017,Hardcover,3455
+331,Every Man's Bible,,2014,Imitation Leather,7066
+332,Elements of Style,,2014,Hardcover,8827
+333,Marvel - Spider-man Me Reader Electronic Reader and 8 Sound Book Library - PI Kids,PI Kids,2019,Hardcover,6881
+334,I Spy Spooky Night,Jean Marzollo,2019,Hardcover,3806
+335,Profit First,Mike Michalowicz,2017,Hardcover,6830
+336,Getting to Yes,Roger Fisher,2011,Paperback,7154
+337,Common Law Handbook,David E. Robinson,2013,Paperback,2750
+338,"The Summer I Turned Pretty (Summer I Turned Pretty, The)",Jenny Han,2010,Paperback,20542
+339,The Vaccine-Friendly Plan,Paul Thomas M.D.,2016,Paperback,3157
+340,One of Us Is Lying,Karen M. McManus,2017,Hardcover,27546
+341,The Plant Paradox,,2017,Hardcover,14278
+342,Wine Folly,Madeline Puckette,2018,Hardcover,6919
+343,Llama Llama Trick or Treat,Anna Dewdney,2014,Board book,3074
+344,Stellaluna 25th Anniversary Edition,Janell Cannon,2018,Hardcover,4298
+345,Behind Closed Doors,B.A. Paris,2017,Paperback,35824
+346,Create This Book,Moriah Elizabeth,2015,Paperback,19370
+347,My First Toddler Coloring Book,,2018,Paperback,18923
+348,Livingood Daily,Dr. Livingood,2017,Paperback,3095
+349,How to Tie Your Shoes,Cottage Door Press,2018,Board book,4882
+350,Fanatical Prospecting,Jeb Blount,2015,Hardcover,3089
+351,No-Drama Discipline,Tina Payne Bryson,2016,Paperback,5931
+352,Real Food for Pregnancy,Lily Nichols,2018,Paperback,3133
+353,Beautifully Organized,Nikki Boyd,2019,Hardcover,5694
+354,The Hobbit,J.R.R. Tolkien,2013,Hardcover,5256
+355,The Mindful Self-Compassion Workbook,Kristin Neff,2018,Paperback,3371
+356,Jumbo Book of Hidden Pictures (Highlights Jumbo Books & Pads),,2017,Paperback,8539
+357,The Rabbit Listened,Cori Doerrfeld,2018,Hardcover,3789
+358,Cursive Handwriting Workbook for Teens,Sujatha Lalgudi,2019,Paperback,8599
+359,The Ideal Team Player,Patrick M. Lencioni,2016,Hardcover,3690
+360,I Prayed for You,Jean Fischer,2015,Hardcover,7161
+361,Piano Book for Adult Beginners,Damon Ferrante,2017,Paperback,7065
+362,Humble Math - 100 Days of Timed Tests,Humble Math,2019,Paperback,10440
+363,Light Seer's Tarot,Chris-Anne,2019,Cards,16188
+364,Kindergarten writing paper with lines for ABC kids,Smith John,2019,Paperback,11450
+365,Complex PTSD,Pete Walker,2013,Paperback,8066
+366,Being Mortal,Atul Gawande,2017,Paperback,19290
+367,National Geographic Little Kids First Big Book of Dinosaurs (National Geographic Little Kids First Big Books),,2011,Hardcover,14099
+368,The Pout-Pout Fish,Deborah Diesen,2013,Board book,23585
+369,The Happy Cookbook,Steve Doocy,2018,Hardcover,4278
+370,History of the World Map by Map,DK,2018,Hardcover,5402
+371,The Meaning of Marriage,Timothy Keller,2013,Paperback,6212
+372,The ONE Thing,Gary Keller,2013,Hardcover,13360
+373,The Bible Made Easy - for Kids,Dave Strehler,2014,Paperback,9832
+374,Rosemary Gladstar's Medicinal Herbs,Rosemary Gladstar,2012,Paperback,9671
+375,The Book Woman of Troublesome Creek,Kim Michele Richardson,2019,Paperback,34948
+376,Number the Stars,Lois Lowry,2011,Paperback,12285
+377,My Sight Words Workbook,Laurin Brainard M.Ed,2019,Paperback,7417
+378,The 4-Hour Workweek,Timothy Ferriss,2009,Hardcover,18932
+379,"Equipped for Reading Success A Comprehensive, Step-By-Step Program for Developing Phonemic Awareness and Fluent Word Recognition",David A. Kilpatrick,2016,Spiral-bound,663
+380,The Land of Stories Complete Paperback Gift Set,Chris Colfer,2018,Paperback,3848
+381,Thriving with ADHD Workbook for Kids,Kelli Miller LCSW  MSW,2018,Paperback,5105
+382,"NIV, Beautiful Word Bible, Updated Edition, Peel/Stick Bible Tabs, Cloth over Board, Floral, Red Letter, Comfort Print",,2019,Hardcover,3258
+383,The Purpose Driven Life,Rick Warren,2013,Paperback,12864
+384,How to Change Your Mind,Michael Pollan,2019,Paperback,6626
+385,Eat Right 4 Your Type (Revised and Updated),,2016,Hardcover,9382
+386,The Unhoneymooners,Christina Lauren,2019,Paperback,31822
+387,Press Here,Herve Tullet,2019,Board book,13602
+388,Goodnight Stories for Rebel Girls,Rebel Girls,2016,Hardcover,9564
+389,The Simple Path to Wealth,J L Collins,2016,Paperback,8827
+390,PAW Patrol 5-Minute Stories Collection (PAW Patrol),Random House,2017,Hardcover,8262
+391,Seamless,,2015,Paperback,5383
+392,And Then There Were None,Agatha Christie,2011,Mass Market Paperback,24113
+393,The Psilocybin Mushroom Bible,Virginia Haze,2016,Paperback,4866
+394,The Heroes of Olympus Paperback Boxed Set (10th Anniversary Edition),Rick Riordan,2019,Paperback,7320
+395,The Complete Ketogenic Diet for Beginners,Amy Ramos,2016,Paperback,28728
+396,"Dino Potty-Engaging Illustrations and Fun, Step-by-Step Rhyming Instructions get Little Ones Excited to Use the Potty on their Own!",Rainstorm Publishing,2019,Board book,6055
+397,Driven to Distraction (Revised),,2011,Paperback,2709
+398,"NKJV, Value Thinline Bible, Large Print, Leathersoft, Charcoal, Red Letter Edition, Comfort Print",,2018,Imitation Leather,3624
+399,A Year of Positive Thinking,Cyndie Spiegel,2018,Paperback,7354
+400,"Buy, Rehab, Rent, Refinance, Repeat",David M Greene,2019,Paperback,4839
+401,"I Wrote a Book About You — A fun, fill-in-the-blank book.",M.H. Clark,2017,Hardcover,14565
+402,Maybe You Should Talk To Someone,Lori Gottlieb,2019,Hardcover,21705
+403,What the Heck Is EOS?,Gino Wickman,2017,Hardcover,1401
+404,First Little Readers Parent Pack,Liza Charlesworth,2010,Paperback,9549
+405,The Girl Who Never Made Mistakes,Mark Pett,2011,Hardcover,2297
+406,The Modern Herbal Dispensatory,,2016,Paperback,7176
+407,New Kid,Jerry Craft,2019,Paperback,7836
+408,Crochet Cute Critters,Sarah Zimmerman,2019,Paperback,10222
+409,The Case for Christ,Lee Strobel,2016,Paperback,9069
+410,First Little Readers Parent Pack,Liza Charlesworth,2010,Paperback,10178
+411,Empire of the Summer Moon,S. C. Gwynne,2011,Paperback,13462
+412,What Do You Do With an Idea? — New York Times best seller,Kobi Yamada,2014,Hardcover,5103
+413,The Diabetes Code,Dr. Jason Fung,2018,Paperback,11044
+414,A People's History of the United States,Howard Zinn,2015,Paperback,12632
+415,My Kindergarten Workbook,Brittany Lynch,2019,Paperback,7261
+416,This Naked Mind,Annie Grace,2018,Paperback,10061
+417,Everything You Need to Ace Science in One Big Fat Notebook,Workman Publishing,2016,Paperback,10436
+418,Ego Is the Enemy,Ryan Holiday,2016,Hardcover,10046
+419,The Power of Habit,Charles Duhigg,2014,Paperback,22732
+420,The Bad Seed (The Food Group),Jory John,2017,Hardcover,13939
+421,They Both Die at the End,Adam Silvera,2018,Paperback,32376
+422,On the Night You Were Born,Nancy Tillman,2010,Board book,13863
+423,"Dinosaur, Dinosaur, Say Good Night",Tiger Tales,2019,Board book,1090
+424,Letting Go,,2014,Paperback,6699
+425,How to Draw Cool Stuff,Catherine V Holmes,2014,Paperback,18757
+426,Goosebumps Retro Scream Collection,R. L. Stine,2015,Paperback,3232
+427,The Laws of Human Nature,Robert Greene,2019,Paperback,10187
+428,The Writing Revolution,Judith C. Hochman,2017,Paperback,1775
+429,A Year of Us,Alicia Muñoz   LPC,2019,Paperback,5657
+430,Slammed,Colleen Hoover,2012,Paperback,7238
+431,"An Elephant & Piggie Biggie Volume 2! (Elephant and Piggie Book, An)",Mo Willems,2019,Hardcover,7670
+432,Goosebumps Classic (Series 1) - 10 Books Set Collection R.L. Stine,R.L.Stine,2017,Paperback,2203
+433,Disney Dreams Collection Thomas Kinkade Studios Coloring Book,Thomas Kinkade,2017,Paperback,28855
+434,Rich Dad's CASHFLOW Quadrant,,2011,Paperback,5131
+435,Rich Dad's CASHFLOW Quadrant,,2011,Paperback,5131
+436,#Staymarried,Michelle Peterson,2017,Paperback,4688
+437,First 100 Stickers,Roger Priddy,2016,Paperback,4454
+438,It,Stephen King,2019,Paperback,24899
+439,The Great Adventure Catholic Bible,Jeff Cavins,2018,Imitation Leather,2488
+440,Louis Vuitton,,2012,Hardcover,2059
+441,My First Padded Board Books of Nursery Rhymes,Wonder House Books,2018,Board book,2621
+442,Astrophysics for People in a Hurry,Neil deGrasse Tyson,2017,Hardcover,20801
+443,The No-Fuss Bread Machine Cookbook,Michelle Anderson,2016,Paperback,11492
+444,The Culture Code,Daniel Coyle,2018,Hardcover,4778
+445,Essential Calculus Skills Practice Workbook with Full Solutions,Chris McMullen,2018,Paperback,1389
+446,Medical Medium Liver Rescue,Anthony William,2018,Hardcover,10984
+447,The Immortal Life of Henrietta Lacks,Rebecca Skloot,2011,Paperback,16941
+448,Paint by Sticker Kids,Workman Publishing,2019,Paperback,18974
+449,Indestructibles,Stephan Lomp,2018,Paperback,5189
+450,Genius Foods,Max Lugavere,2018,Hardcover,2603
+451,Diana,Andrew Morton,2017,Paperback,8335
+452,Killers of the Flower Moon,David Grann,2018,Paperback,21842
+453,"Spooky, Spooky, Little Bat Finger Puppet Halloween Board Book Ages 0-4 (Finger Puppet Board Book)",Cottage Door Press,2019,Board book,1153
+454,Lifespan,,2019,Hardcover,8261
+455,The 12 Week Year,Brian P. Moran,2013,Hardcover,4626
+456,Preschool Big Fun Workbook (Highlights™ Big Fun Activity Workbooks),,2017,Paperback,5568
+457,Social Skills Activities for Kids,Natasha Daniels,2019,Paperback,4040
+458,The Vocabulary Builder Workbook,Chris Lele,2018,Paperback,5396
+459,"The Deal (Off-Campus, 1)",Elle Kennedy,2015,Paperback,38842
+460,Wreck This Journal,Keri Smith,2017,Paperback,22079
+461,"Spectrum 6th Grade Math Workbook, Multiplying and Dividing Fractions and Decimals, Math Equations, Percents, Probability and Statistics, Classroom or Homeschool Curriculum",,2014,Paperback,3473
+462,A Man Called Ove,Fredrik Backman,2015,Paperback,57012
+463,The Modern Witch Tarot Deck (Modern Tarot Library),Lisa Sterle,2019,Paperback,19636
+464,Point of Retreat,Colleen Hoover,2012,Paperback,4169
+465,Wacky Waving Inflatable Tube Guy (RP Minis),,2018,Paperback,38573
+466,The Perks of Being a Wallflower,Stephen Chbosky,2012,Paperback,23940
+467,Greatest Works of Edgar Allan Poe (Deluxe Hardbound Edition),Edgar Allan Poe,2018,Hardcover,1425
+468,Radical Candor,Kim Scott,2019,Hardcover,5511
+469,The Invisible Boy,Trudy Ludwig,2013,Hardcover,3509
+470,"Marvel Encyclopedia, New Edition",Stephen Wiacek,2019,Hardcover,16266
+471,"A Series of Unfortunate Events Lemony Snicket 13 Books Collection Pack Set (Includes the Bad Beginning, the Reptile Room, the Wide Window, the Miserable Mill, the Austere Academy, the Grim Grotto, the Penultimate Peril, the End)",,2016,Paperback,2114
+472,The Power of a Praying® Wife,Stormie Omartian,2014,Paperback,8934
+473,The Ruthless Elimination of Hurry,John Mark Comer,2019,Hardcover,7657
+474,HOMER,Homer,2018,Hardcover,3091
+475,"CSB She Reads Truth Bible, Rose Gold LeatherTouch, Black Letter, Full-Color Design, Wide Margins, Journaling Space, Devotionals, Reading Plans, Single-Column, Easy-to-Read Bible Serif Type",Raechel Myers,2019,Imitation Leather,3361
+476,Breathe Like a Bear,Kira Willey,2017,Paperback,5710
+477,Anger Management Workbook for Kids,Samantha Snowden MA,2018,Paperback,8217
+478,Divergent Series Four-Book Paperback Box Set,Veronica Roth,2016,Paperback,10004
+479,The Intuitive Eating Workbook,Evelyn Tribole,2017,Paperback,3649
+480,Diabetic Cookbook and Meal Plan for the Newly Diagnosed,Lori Zanini RD  CDE,2018,Paperback,7508
+481,"School Zone - Get Ready Flash Cards Addition & Subtraction 2 Pack - Ages 6 to 7, 1st Grade, 2nd Grade, Addition, Subtraction, Early Math, Problem-Solving, and More",,2019,Mass Market Paperback,4181
+482,Ghost Afraid of the Dark-With Glow-in-the-Dark Cover-Follow a Shy Little Ghost as he Discovers how to be Brave,Sara Conway,2019,Hardcover,472
+483,The Selection 5-Book Box Set,Kiera Cass,2017,Paperback,6613
+484,"Spectrum 2nd Grade Math Workbook, Fractions, Addition and Subtraction With 2- and 3-Digit Numbers, 3-D Shapes, Measurement, Spectrum Grade 2 Math Workbook for Classroom or Homeschool Curriculum",,2014,Paperback,2436
+485,"Smile, Sisters, and Guts",Raina Telgemeier,2019,Paperback,2429
+486,The Legend of Spookley the Square Pumpkin,Joe Troiano,2018,Hardcover,1516
+487,Boynton's Greatest Hits The Big Green Box,Sandra Boynton,2018,Board book,2070
+488,Inward,Yung Pueblo,2018,Paperback,7420
+489,Akira 35th Anniversary Box Set,Katsuhiro Otomo,2017,Hardcover,2664
+490,I Am Not Your Perfect Mexican Daughter,Erika L. Sánchez,2019,Paperback,7000
+491,Strengths Based Leadership,Tom Rath,2009,Hardcover,2349
+492,The Hunger Games (Book 1),Suzanne Collins,2010,Paperback,42777
+493,Encyclopedia of Counseling,,2017,Paperback,2654
+494,"Goodnight, Goodnight Construction Site (Hardcover Books for Toddlers, Preschool Books for Kids)",Sherri Duskey Rinker,2011,Hardcover,20095
+495,Bushcraft 101,Dave Canterbury,2014,Paperback,21538
+496,The Defined Dish,Alex Snodgrass,2019,Hardcover,6001
+497,Pete the Cat 12-Book Phonics Fun!,James Dean,2017,Paperback,7558
+498,Trail Guide to the Body,,2019,Spiral-bound,1080
+499,The Shining,Stephen King,2013,Paperback,23992
+500,The Backyard Bug Book for Kids,Lauren Davidson,2019,Paperback,12304
+501,It Starts with the Egg,Rebecca Fett,2019,Paperback,5158
+502,Tax-Free Wealth,Tom Wheelwright,2018,Paperback,3530
+503,Fervent,Priscilla Shirer,2015,Paperback,10076
+504,Elizabeth the Queen,Sally Bedell Smith,2012,Paperback,1120
+505,After I Do,Taylor Jenkins Reid,2014,Paperback,6622
+506,The Love Dare,Alex Kendrick,2013,Paperback,9898
+507,Relentless,Tim S. Grover,2014,Paperback,8756
+508,Storytelling with Data,Cole Nussbaumer Knaflic,2015,Paperback,3341
+509,The Old Farmer's Almanac Vegetable Gardener’s Handbook (Old Farmer's Almanac (Paperback)),Old Farmer’s Almanac,2019,Paperback,3968
+510,In My Heart,Jo Witek,2014,Hardcover,7793
+511,What If Everybody Did That?,Ellen Javernick,2012,Hardcover,5430
+512,"NIV, Adventure Bible, Leathersoft, Pink, Full Color",,2013,Imitation Leather,1801
+513,The Legend of Zelda,Piggyback,2018,Hardcover,9068
+514,The C. S. Lewis Signature Classics (8-Volume Box Set),C. S. Lewis,2017,Paperback,2841
+515,Deep Work,Cal Newport,2016,Hardcover,17595
+516,"Jesus Loves Me 5-Button Songbook - Perfect Gift for Easter Baskets, Christmas, Birthdays, Baptisms, and More, Ages 2-7 (Little Sunbeams)",Cottage Door Press,2018,Board book,5962
+517,Have You Filled a Bucket Today?,Carol McCloud,2015,Paperback,7884
+518,Unfu*k Yourself,Gary John Bishop,2017,Hardcover,19675
+519,The Alchemist,Paulo Coelho,2014,Hardcover,5528
+520,"Jesus Calling, Large Text Brown Leathersoft, with full Scriptures",,2011,Imitation Leather,5376
+521,The Harbinger,Jonathan Cahn,2012,Paperback,19011
+522,Endurance,Alfred Lansing,2015,Paperback,9678
+523,The Miracle Morning,Hal Elrod,2012,Paperback,11390
+524,The Halloween Tree,,2019,Hardcover,527
+525,The 10X Rule,Grant Cardone,2011,Hardcover,8452
+526,"NIV, Life Application Study Bible, Third Edition, Leathersoft, Gray/Pink, Red Letter",Zondervan,2019,Imitation Leather,2180
+527,First Little Readers Parent Pack,Liza Charlesworth,2017,Paperback,6183
+528,"Big Shark, Little Shark (Step into Reading)",Anna Membrino,2017,Paperback,10468
+529,Unicorn Coloring Book,Silly Bear,2018,Paperback,20063
+530,Youre The Biggest,Lucy Tapper,2017,Hardcover,5736
+531,"Babies Love Colors - A First Lift-a-Flap Board Book for Babies and Toddlers Learning about Colors, Ages 1-4 (Chunky Lift a Flap)",Cottage Door Press,2018,Board book,2728
+532,"Black’s Law Dictionary, 11th Edition (BLACK'S LAW DICTIONARY (STANDARD EDITION))",Bryan A. Garner,2019,Hardcover,2147
+533,Your Baby's First Word Will Be DADA,Jimmy Fallon,2015,Board book,14537
+534,CBT Toolbox for Children and Adolescents,Lisa Phifer,2017,Spiral-bound,4276
+535,Naruto Box Set 3,Masashi Kishimoto,2016,Paperback,1050
+536,National Park Quarters,Warman's,2010,Hardcover,10031
+537,This Girl,Colleen Hoover,2013,Paperback,3037
+538,"Bring Up the Bodies (Wolf Hall, Book 2)",Hilary Mantel,2013,Paperback,8624
+539,Allen Carr's Easy Way To Stop Smoking,Allen Carr,2011,Paperback,5972
+540,Treat Your Own Back,,2011,Paperback,5153
+541,Be Brave Little One,Marianne Richmond,2017,Hardcover,2618
+542,The New Strong's Expanded Exhaustive Concordance of the Bible,James Strong,2010,Hardcover,7240
+543,Six Seasons,Joshua McFadden,2017,Hardcover,2496
+544,"Merriam-Webster's Collegiate Dictionary, 11th Edition, Jacketed Hardcover, Indexed, 2020 Copyright",,2019,Hardcover,6359
+545,The Untethered Soul,Michael A. Singer,2013,Hardcover,26231
+546,The Myth of Sisyphus (Vintage International),Albert Camus,2018,Paperback,2929
+547,Shark Lady,Jess Keating,2017,Hardcover,1751
+548,The Green Witch,Arin Murphy-Hiscock,2017,Hardcover,24520
+549,"Sound Innovations for String Orchestra, Bk 1",,2010,Paperback,1111
+550,Deliverance Prayers,,2016,Paperback,3758
+551,Catholic High School Entrance Exams,Kaplan Test Prep,2016,Paperback,851
+552,Awesome Science Experiments for Kids,Crystal Chatterton,2018,Paperback,14665
+553,Polar Express 30th Anniversary Edition,Chris Van Allsburg,2015,Hardcover,17123
+554,Peppa's Halloween Party (Peppa Pig,,2016,Paperback,2709
+555,Grimm's Complete Fairy Tales,,2011,Hardcover,10480
+556,Island of the Blue Dolphins,Scott O'Dell,2010,Paperback,8189
+557,Just Ask!,Sonia Sotomayor,2019,Hardcover,3583
+558,All Are Welcome,Alexandra Penfold,2018,Hardcover,5738
+559,"Minecraft Volume 1 (Graphic Novel) (Minecraft, 1)",Sarah Graley,2019,Paperback,3782
+560,When She Returned,Lucinda Berry,2019,Paperback,13838
+561,Llama Llama Misses Mama,Anna Dewdney,2009,Hardcover,3739
+562,"NIrV, Adventure Bible for Early Readers, Hardcover, Full Color",Zondervan,2014,Hardcover,2351
+563,Let My People Go Surfing,Yvon Chouinard,2016,Paperback,1535
+564,The Books of Enoch,Joseph Lumpkin,2011,Paperback,9862
+565,When the Body Says No,,2011,Paperback,4567
+566,The Happiest Baby on the Block; Fully Revised and Updated Second Edition,Harvey Karp,2015,Paperback,4088
+567,Cocktail Codex,Alex Day,2018,Hardcover,2643
+568,Parenting,Paul David Tripp,2016,Hardcover,2803
+569,1-2-3 Magic,,2016,Paperback,4879
+570,Splat the Cat and the Pumpkin-Picking Plan,,2014,Paperback,1463
+571,Inspired,Marty Cagan,2017,Hardcover,3553
+572,Excel Formulas (Quick Study Computer),Inc. BarCharts,2013,Ring-bound,2171
+573,Deliverance From Demonic Covenants And Curses,Rev. James A. Solomon,2010,Paperback,757
+574,Pretty Simple Lettering,Whitney Farnsworth,2019,Spiral-bound,6991
+575,Scythe (1) (Arc of a Scythe),Neal Shusterman,2017,Paperback,8853
+576,The Advantage,Patrick M. Lencioni,2012,Hardcover,2480
+577,"Let's Talk About Body Boundaries, Consent and Respect",Jayneen Sanders,2017,Paperback,4265
+578,Anatomy (Quickstudy Academic),Inc. BarCharts,2014,Cards,5761
+579,The 5 Languages of Appreciation in the Workplace,Gary Chapman,2019,Paperback,2538
+580,Throne of Glass,Sarah J. Maas,2013,Paperback,30427
+581,The Boys in the Boat,Daniel James Brown,2014,Paperback,31131
+582,"Eye Movement Desensitization and Reprocessing (EMDR) Therapy, Third Edition",Francine Shapiro,2017,Hardcover,1508
+583,The Borderline Personality Disorder Workbook,,2019,Paperback,3916
+584,"Parable of the Sower (Parable, 1)",Octavia E. Butler,2019,Paperback,9194
+585,My Grandmother's Hands,,2017,Paperback,4760
+586,Disney - Where's Mickey Mouse - A Look and Find Book Activity Book - PI Kids,,2019,Hardcover,2804
+587,Best of Children s Classics (Set of 5 Books),,2019,Paperback,5026
+588,Awesome Jokes That Every 8 Year Old Should Know!,Mat Waugh,2018,Paperback,9965
+589,The Day You Begin,Jacqueline Woodson,2018,Hardcover,7022
+590,Pathophysiology,,2018,Hardcover,2254
+591,When Things Fall Apart,Pema Chodron,2016,Paperback,6525
+592,The Blue Zones Kitchen,Dan Buettner,2019,Hardcover,10869
+593,"The Complete Cooking for Two Cookbook, Gift Edition",America's Test Kitchen,2017,Hardcover,8625
+594,"Ada Twist, Scientist (The Questioneers)",Andrea Beaty,2016,Hardcover,4765
+595,"KJV Holy Bible, Giant Print Standard Size Faux Leather Red Letter Edition - Thumb Index & Ribbon Marker, King James Version, Dark Brown",,2017,Imitation Leather,17560
+596,The Design of Everyday Things,Don Norman,2013,Paperback,5083
+597,Crochet Techniques & Tips,Publications International Ltd.,2014,Spiral-bound,5523
+598,"NIrV, Adventure Bible for Early Readers, Leathersoft, Pink, Full Color",,2014,Imitation Leather,1408
+599,"Tiny T. Rex and the Impossible Hug (Dinosaur Books, Dinosaur Books for Kids, Dinosaur Picture Books, Read Aloud Family Books, Books for Young Children)",Jonathan Stutzman,2019,Hardcover,5175
+600,Bob Books Sight Words,Lynn Maslen Kertell,2010,Paperback,5767
+601,The Coddling of the American Mind,Greg Lukianoff,2019,Paperback,6807
+602,Everything You Need to Ace World History in One Big Fat Notebook,Workman Publishing,2016,Paperback,7790
+603,The Plant Paradox Quick and Easy,,2019,Paperback,9241
+604,Sesame Street - Potty Time with Elmo - Potty Training Sound Book - PI Kids,PI Kids,2016,Board book,6021
+605,"Spectrum 7th Grade Math Workbooks, Algebra, Geometry, Probability, Statistics, Ratios, Positive and Negative Integers, Classroom or Homeschool Curriculum",,2014,Paperback,4313
+606,Keeper of the Lost Cities Collection Books 1-5,Shannon Messenger,2018,Paperback,2979
+607,Agile Practice Guide,Project Management Institute,2017,Paperback,1395
+608,Between the World and Me,Ta-Nehisi Coates,2015,Hardcover,20041
+609,DSM-5 Overview (Quick Study Academic),Inc. BarCharts,2014,Pamphlet,7092
+610,Tomie,Junji Ito,2016,Hardcover,8748
+611,Ghost (1) (Track),Jason Reynolds,2017,Paperback,4054
+612,Beautiful Oops!,Barney Saltzberg,2010,Hardcover,3895
+613,ESV Church Bible (Black),ESV Bibles,2018,Hardcover,332
+614,Rewire Your Anxious Brain,Catherine M. Pittman PhD,2015,Paperback,2950
+615,Stephen Curry,Anthony Curcio,2016,Paperback,6508
+616,The Bible Study,Zach Windahl,2017,Paperback,2222
+617,"Taking Charge of Your Fertility, 20th Anniversary Edition",Toni Weschler,2015,Paperback,4438
+618,Little Blue Truck Leads the Way Board Book,Alice Schertle,2015,Board book,11971
+619,Guts,Raina Telgemeier,2019,Paperback,13986
+620,The Girl Who Drank the Moon (Winner of the 2017 Newbery Medal),Kelly Barnhill,2019,Paperback,19862
+621,The Mindf*ck Series,S.T. Abby,2019,Paperback,1437
+622,We Were Liars,E. Lockhart,2018,Paperback,42301
+623,The Goal,Eliyahu M. Goldratt,2014,Paperback,4344
+624,It Ends with Us,,2017,Paperback,77
+625,The First Forty Days,Heng Ou,2016,Hardcover,1503
+626,Brain Games - Sticker by Number,Publications International Ltd.,2019,Spiral-bound,4569
+627,Pigeon Series 7 Book Set,Mo Willems,2009,Paperback,495
+628,Practicing Mindfulness,Matthew Sockolov,2018,Paperback,6828
+629,Indestructibles,Stephan Lomp,2017,Paperback,3930
+630,"Rosie Revere, Engineer (The Questioneers)",Andrea Beaty,2013,Hardcover,6386
+631,The Complete Calvin and Hobbes,Bill Watterson,2012,Paperback,11201
+632,Station Eleven,Emily St. John Mandel,2015,Paperback,21265
+633,Pillow Thoughts,Courtney Peppernell,2017,Paperback,11671
+634,The Miraculous Journey of Edward Tulane,Kate DiCamillo,2015,Paperback,7344
+635,The Finer Things,Christiane Lemieux,2016,Hardcover,1647
+636,The Little Book of Common Sense Investing,John C. Bogle,2017,Hardcover,7345
+637,Bad Apple,Edward Hemingway,2015,Paperback,567
+638,"NKJV Study Bible, Hardcover, Burgundy, Full-Color, Comfort Print",Thomas Nelson,2018,Hardcover,2588
+639,Homebody,Joanna Gaines,2018,Hardcover,10968
+640,The Book of Joy,Dalai Lama,2016,Hardcover,8479
+641,"Men Are from Mars, Women Are from Venus",John Gray,2012,Paperback,11409
+642,The How Not to Die Cookbook,,2017,Hardcover,10253
+643,"It's Pumpkin Day, Mouse! (If You Give...)",Laura Numeroff,2019,Board book,2157
+644,The Only Astrology Book You'll Ever Need,Joanna Martine Woolfolk,2012,Paperback,10098
+645,Smart but Scattered,Peg Dawson,2009,Paperback,2208
+646,Night Night Farm (Night Night Books),Roger Priddy,2017,Board book,6760
+647,Gifted and Talented COGAT Test Prep Grade 2,Gateway Gifted Resources,2017,Paperback,786
+648,The Big Leap,Gay Hendricks,2010,Paperback,5070
+649,The Creature from Jekyll Island,G. Edward Griffin,2010,Paperback,3579
+650,Warriors,Erin Hunter,2015,Paperback,4019
+651,Dragon Ball Z Complete Box Set,Akira Toriyama,2019,Paperback,1937
+652,Pete the Cat,James Dean,2015,Hardcover,1318
+653,B Is for Boo,,2017,Board book,807
+654,The Magic (The Secret Library),Rhonda Byrne,2012,Paperback,11166
+655,Eat That Frog!,Brian Tracy,2017,Paperback,5240
+656,Ordinary Men,Christopher R. Browning,2017,Paperback,4161
+657,At the Old Haunted House,Helen Ketteman,2014,Hardcover,1327
+658,Campbell Biology (Campbell Biology Series),,2016,Hardcover,3637
+659,Back Mechanic by Dr. Stuart McGill (2015-09-30),Stuart McGill,2015,Paperback,2128
+660,"Waiting Is Not Easy! (An Elephant and Piggie Book) (Elephant and Piggie Book, An)",Mo Willems,2014,Hardcover,14230
+661,They Called Us Enemy,George Takei,2019,Paperback,4086
+662,Dork Diaries By Rachel Renee Russell 12 Books Collection Set,,2017,Paperback,2574
+663,Something Wicked This Way Comes,Ray Bradbury,2017,Paperback,3794
+664,Beartown,Fredrik Backman,2018,Paperback,13176
+665,Difficult Conversations,Douglas Stone,2010,Paperback,2849
+666,Disney Moana - I Am Moana Little Sound Book - PI Kids (Disney Moana,,2016,Board book,11617
+667,Indestructibles,Maddie Frost,2019,Paperback,3250
+668,A Thousand Boy Kisses,Tillie Cole,2016,Paperback,12900
+669,National Geographic Kids Why?,Crispin Boyer,2015,Hardcover,12922
+670,Amelia Bedelia 5-Book I Can Read Box Set #1,,2016,Paperback,2348
+671,The Sun and Her Flowers,Rupi Kaur,2017,Paperback,16961
+672,This is Home,Natalie Walton,2018,Hardcover,1158
+673,The Last Mrs. Parrish,Liv Constantine,2018,Paperback,23048
+674,A Kissing Hand for Chester Raccoon (The Kissing Hand Series),Audrey Penn,2014,Board book,2589
+675,Physical Examination and Health Assessment,,2019,Hardcover,2056
+676,Everything Is Mama,Jimmy Fallon,2019,Board book,9069
+677,Self-Compassion,,2015,Paperback,4564
+678,Your LifeBook,,2019,Paperback,1208
+679,The New One Minute Manager (The One Minute Manager-updated),,2016,Paperback,4421
+680,The 5 Love Languages of Children,Gary Chapman,2016,Paperback,10484
+681,Chop Wood Carry Water,Joshua Medcalf,2015,Paperback,2794
+682,The Making of a Manager,Julie Zhuo,2019,Hardcover,3222
+683,The Plant Paradox Cookbook,,2018,Hardcover,8366
+684,Bridge to Terabithia,Katherine Paterson,2017,Paperback,6770
+685,Difficult Riddles For Smart Kids,M Prefontaine,2017,Paperback,28853
+686,"The Boy with Big, Big Feelings (The Big, Big Series, 1)",Britney Winn Lee,2019,Hardcover,2557
+687,The Odyssey,Homer,2018,Paperback,3330
+688,"DBT Skills Training Manual, Second Edition",,2014,Paperback,2119
+689,"School Zone - Big Second Grade Workbook - 320 Pages, Ages 7 to 8, 2nd Grade, Word Problems, Reading Comprehension, Phonics, Math, Science, and More (School Zone Big Workbook Series)",School Zone,2015,Perfect Paperback,7516
+690,The Three-Body Problem,Cixin Liu,2016,Paperback,16699
+691,"The Boy with Big, Big Feelings (The Big, Big Series, 1)",Britney Winn Lee,2019,Hardcover,2557
+692,The Odyssey,Homer,2018,Paperback,3330
+693,"DBT Skills Training Manual, Second Edition",,2014,Paperback,2119
+694,"School Zone - Big Second Grade Workbook - 320 Pages, Ages 7 to 8, 2nd Grade, Word Problems, Reading Comprehension, Phonics, Math, Science, and More (School Zone Big Workbook Series)",School Zone,2015,Perfect Paperback,7516
+695,The Three-Body Problem,Cixin Liu,2016,Paperback,16699
+696,How Great Is Our God,Louie Giglio,2019,Hardcover,6070
+697,Love Makes a Family,Sophie Beer,2018,Board book,2562
+698,Destinations of a Lifetime,National Geographic,2015,Hardcover,4439
+699,Minecraft,Mojang AB,2018,Paperback,3289
+700,The MeatEater Fish and Game Cookbook,Steven Rinella,2018,Hardcover,11821
+701,"Worry Less, Pray More",Donna K. Maltese,2019,Paperback,9929
+702,"The Big Book of Reading Comprehension Activities, Grade 1",Hannah Braun M.Ed.,2019,Paperback,2822
+703,The Last Kids on Earth,Max Brallier,2018,Hardcover,8012
+704,Building a StoryBrand,Donald Miller,2017,Hardcover,7008
+705,Ready Player One,Ernest Cline,2012,Paperback,45973
+706,The Good House,Ann Leary,2013,Paperback,1319
+707,Fry Bread,Kevin Noble Maillard,2019,Hardcover,3150
+708,Where's Waldo? Deluxe Edition,Martin Handford,2012,Hardcover,8166
+709,Doing Life with Your Adult Children,,2019,Paperback,2565
+710,You'll Come Back to Yourself,Michaela Angemeer,2019,Paperback,5474
+711,Sex Is a Funny Word,Cory Silverberg,2015,Hardcover,999
+712,Stand Strong,Our Daily Bread Ministries,2018,Hardcover,5591
+713,The Color Monster,Anna Llenas,2015,Hardcover,3529
+714,My Year of Rest and Relaxation,Ottessa Moshfegh,2019,Paperback,6619
+715,Becoming Your Own Banker,R. Nelson Nash,2009,Paperback,1548
+716,Good Pictures Bad Pictures,,2018,Paperback,2586
+717,The Inner Work,Mathew Micheletti,2019,Paperback,1339
+718,Extra Practice for Struggling Readers,Linda Beech,2010,Paperback,2291
+719,Death & Co,David Kaplan,2014,Hardcover,2812
+720,Three-Body Problem Boxed Set,Cixin Liu,2019,Paperback,1602
+721,Warriors Box Set,Erin Hunter,2015,Paperback,7201
+722,The Amish Canning Cookbook,Georgia Varozza,2013,Spiral-bound,4551
+723,Listening to My Body,Gabi Garcia,2017,Paperback,4062
+724,ABC for Me,Sugar Snap Studio,2018,Board book,5252
+725,Junie B. Jones Complete Kindergarten Collection,Barbara Park,2014,Paperback,1270
+726,Mini Farming,Brett L. Markham,2010,Paperback,4751
+727,"The Red Rising Series Collection 5 Books Set By Pierce Brown (Red Rising, Golden Son, Morning Star, Iron Gold, Dark Age)",Pierce Brown,2019,Paperback,1594
+728,"Red, White & Royal Blue",Casey McQuiston,2019,Paperback,26746
+729,Brain Quest Workbook,Bridget Heos,2015,Paperback,10292
+730,Homegoing,Yaa Gyasi,2017,Paperback,16089
+731,"The Big Book of Reading Comprehension Activities, Grade 3",Hannah Braun M.Ed.,2019,Paperback,2173
+732,Unfuck Your Brain,,2017,Paperback,4957
+733,"The Ethical Slut, Third Edition",Dossie Easton,2017,Paperback,4102
+734,How To,Randall Munroe,2019,Hardcover,5158
+735,Anxious for Nothing,Max Lucado,2019,Paperback,9395
+736,Mother Goose Treasury,Parragon Books,2018,Hardcover,4497
+737,Hair Love,Matthew A. Cherry,2019,Hardcover,17368
+738,"NIV, Super Giant Print Reference Bible, Leathersoft, Brown, Red Letter, Comfort Print",,2018,Imitation Leather,2801
+739,State Quarter 1999-2009,Warman's,2009,Hardcover,8455
+740,"The Grief Recovery Handbook, 20th Anniversary Expanded Edition",John W. James,2017,Paperback,3891
+741,115VN - String Basics,,2010,Paperback,718
+742,The Dragonet Prophecy (Wings of Fire #1) (1),Tui T. Sutherland,2013,Paperback,5602
+743,Ultimate Bugopedia,Nancy Honovich,2013,Hardcover,3059
+744,"The Mistake (Off-Campus, 2)",Elle Kennedy,2015,Paperback,14202
+745,"The Big Book of Reading Comprehension Activities, Grade 2",Hannah Braun M.Ed.,2019,Paperback,2881
+746,Flash Cards,,2018,Cards,9768
+747,The Choice,,2018,Paperback,17427
+748,"CSB She Reads Truth Bible, Hardcover, Black Letter, Full-Color Design, Wide Margins, Notetaking Space, Devotionals, Reading Plans, Two Ribbon Markers, Sewn Binding, Easy-to-Read Bible Serif Type",Raechel Myers,2017,Hardcover,1809
+749,My Big Fat Zombie Goldfish Boxed Set,Mo O'Hara,2017,Paperback,10930
+750,I Am Enough,Grace Byers,2018,Hardcover,11225
+751,The Inheritance Cycle 4-Book Trade Paperback Boxed Set,Christopher Paolini,2012,Paperback,6595
+752,Women of the Word,Jen Wilkin,2019,Paperback,4313
+753,Mythology (75th Anniversary Illustrated Edition),Edith Hamilton,2017,Hardcover,8487
+754,Concise Guide to APA Style,American Psychological Association,2019,Spiral-bound,4136
+755,Juicing for Beginners,Rockridge Press,2013,Paperback,6493
+756,Dad Jokes,Jimmy Niro,2018,Paperback,4269
+757,"The Critical Reader, Fourth Edition",,2019,Paperback,1416
+758,The Sandman Omnibus Vol. 1,Neil Gaiman,2013,Hardcover,1494
+759,Me and My Feelings,"NBCT Vanessa Green Allen, M.Ed.",2019,Paperback,5733
+760,How to Survive Anything,Rachel Buchholz,2011,Paperback,4791
+761,Catechism of the Catholic Church,Libreria Editrice Vaticana,2019,Paperback,1413
+762,Welcome Little One,Sandra Magsamen,2015,Board book,4809
+763,The Go-Giver,,2012,Paperback,6401
+764,The Leadership Challenge,James M. Kouzes,2017,Hardcover,2819
+765,"NIV, Value Thinline Bible, Leathersoft, Teal, Comfort Print",,2017,Imitation Leather,4861
+766,Red Famine,Anne Applebaum,2018,Paperback,1330
+767,The Secret Teachings of All Ages,Manly P. Hall,2010,Paperback,1681
+768,"The Bait of Satan, 20th Anniversary Edition",John Bevere,2014,Paperback,6930
+769,Booze & Vinyl,André Darlington,2018,Hardcover,2718
+770,One Piece Box Set 2,Eiichiro Oda,2014,Paperback,1315
+771,The Courage to Be Disliked,Fumitake Koga,2018,Hardcover,7754
+772,She Comes First,Ian Kerner,2010,Paperback,5802
+773,Ultimate Guide,,2017,Paperback,4581
+774,My Magical Choices (The Magic of Me Series),Becky Cummings,2019,Hardcover,2883
+775,You're My Little Cuddle Bug,,2018,Board book,5028
+776,Measure What Matters,John Doerr,2018,Hardcover,5864
+777,"Heir of Fire (Throne of Glass, 3)",Sarah J. Maas,2015,Paperback,21724
+778,"The Catholic Youth Bible, 4th Edition, NABRE",Saint Mary's Press,2018,Paperback,1446
+779,Netter's Anatomy Coloring Book Updated Edition (Netter Basic Science),,2018,Paperback,8198
+780,"Crown of Midnight (Throne of Glass, 2)",Sarah J. Maas,2014,Paperback,22763
+781,Dragons Love Tacos 2,Adam Rubin,2017,Hardcover,3793
+782,THE First Days of School,,2018,Paperback,2444
+783,There There,Tommy Orange,2019,Paperback,7742
+784,Inside Out and Back Again,,2013,Paperback,5094
+785,Journey to the Heart,Melody Beattie,2010,Paperback,3648
+786,The Happiness Advantage,Shawn Achor,2018,Paperback,5657
+787,The Coffee Bean,Damon West,2019,Hardcover,2484
+788,Becoming a Supple Leopard 2nd Edition,Kelly Starrett,2015,Hardcover,3661
+789,Boy Who Was Raised as a Dog,Bruce D. Perry,2017,Paperback,6081
+790,Burn After Writing,Sharon Jones,2015,Paperback,78300
+791,Pete the Cat Take-Along Storybook Set,James Dean,2017,Paperback,2825
+792,Ottolenghi Simple,Yotam Ottolenghi,2018,Hardcover,7783
+793,Trick Or Treat 3-Button Sound Halloween Board Book for Babies and Toddlers (Early Bird Sound Books),Rosa Von Feder,2017,Hardcover,914
+794,The 5 Second Rule,Mel Robbins,2017,Hardcover,7540
+795,Warriors,Erin Hunter,2015,Paperback,3348
+796,The Cool Bean (The Food Group),Jory John,2019,Hardcover,6683
+797,The Mastery of Self,don Miguel Ruiz Jr.,2017,Paperback,4650
+798,"The Score (Off-Campus, 3)",Elle Kennedy,2016,Paperback,12552
+799,Leadership and Self-Deception,The Arbinger Institute,2018,Paperback,2717
+800,Hardy Boys Starter Set - Books 1-5 (The Hardy Boys),Franklin W. Dixon,2012,Hardcover,4092
+801,Moms on Call | Next Steps Baby Care 6-15 Months | Parenting Book 2 of 3,Laura Hunter LPN,2012,Paperback,1489
+802,Ninja Selling,Larry Kendall,2017,Hardcover,1669
+803,Preschool Cutting and Pasting (Highlights Learn on the Go Practice Pads),,2019,Paperback,4403
+804,Brown Girl Dreaming,Jacqueline Woodson,2016,Paperback,5067
+805,Battlefield of the Mind (Spiritual Growth Series),Joyce Meyer,2017,Paperback,2811
+806,"Cook Once, Eat All Week",Cassy Joy Garcia,2019,Paperback,7544
+807,My Favorite Berenstain Bears Stories,Stan Berenstain,2018,Paperback,2077
+808,"Mayo Clinic Guide to a Healthy Pregnancy, 2nd Edition",,2018,Paperback,3023
+809,The Writing Strategies Book,Jennifer Serravallo,2017,Paperback,2361
+810,Psicología oscura,Steven Turner,2019,Paperback,1277
+811,Frankenstein,,2018,Paperback,832
+812,The Alice Network,Kate Quinn,2017,Paperback,25114
+813,The Color of Law,Richard Rothstein,2018,Paperback,16273
+814,Nature Friends Lift-a-Flap Boxed Set 4-Pack,Ginger Swift,2018,Board book,2041
+815,Crenshaw,,2017,Paperback,6804
+816,"Disney Princess Ariel, Rapunzel, Belle, and More!- Dream Big Princess Me Reader and 8-Book Library - PI Kids",,2019,Hardcover,2417
+817,Red Notice,Bill Browder,2015,Paperback,14762
+818,Awesome Engineering Activities for Kids,Christina Schul,2019,Paperback,7274
+819,The Things We Cannot Say,Kelly Rimmer,2019,Paperback,15400
+820,"Nickelodeon Paw Patrol Chase, Skye, Marshall, and More! - Me Reader Electronic Reader and 8 Sound Book Library - PI Kids",,2019,Hardcover,9587
+821,The Tattooist of Auschwitz,Heather Morris,2018,Paperback,55804
+822,Create This Book 2,Moriah Elizabeth,2018,Paperback,15989
+823,The Bucket List,Kath Stathers,2017,Hardcover,3076
+824,"World of Eric Carle, My First Library 12 Board Book Set - First Words, Alphabet, Numbers, and More! Baby Books - PI Kids",,2017,Board book,8715
+825,How to Draw Cute Stuff,Angela Nguyen,2017,Paperback,7434
+826,The Highly Sensitive,Judy Dyer,2018,Paperback,1219
+827,Legend of the Star Runner,J. I. Wagner,2018,Paperback,4279
+828,"Multipliers, Revised and Updated",Liz Wiseman,2017,Hardcover,2578
+829,Pocket Medicine,,2019,Spiral-bound,2627
+830,Solitaire,Alice Oseman,2014,Paperback,4004
+831,"NIV, Bible for Teen Girls, Hardcover",Zondervan,2015,Hardcover,5905
+832,"Hello, World! How Do Apples Grow?",Jill McDonald,2019,Board book,1166
+833,The Surrender Experiment,Michael A. Singer,2015,Paperback,5291
+834,"Guns, Germs, and Steel",,2017,Paperback,8631
+835,The Montessori Toddler,Simone Davies,2019,Paperback,8651
+836,Corrupt (Devil's Night),Penelope Douglas,2015,Paperback,19572
+837,"Good Vibes, Good Life",Vex King,2018,Paperback,27312
+838,Gender Queer,,2019,Paperback,2228
+839,The Language of Creation,,2018,Paperback,439
+840,Developing the Leader Within You 2.0,John C. Maxwell,2019,Paperback,2594
+841,Never Never,Colleen Hoover,2017,Paperback,6367
+842,Awesome Jokes That Every 7 Year Old Should Know!,Mat Waugh,2018,Paperback,6477
+843,Marcus Aurelius - Meditations,Marcus Aurelius,2016,Paperback,565
+844,Ultimate Puzzle Challenge! (Highlights Jumbo Books & Pads),,2019,Paperback,3730
+845,How to Talk so Little Kids Will Listen,Joanna Faber,2017,Paperback,8076
+846,"Spectrum Reading Comprehension Grade 3 Workbook, Fiction and Nonfiction Passages, Identifying Story Structure and Main Ideas, Critical Thinking Skills, Classroom or Homeschool Curriculum",,2014,Paperback,1812
+847,"Automate the Boring Stuff with Python, 2nd Edition",Al Sweigart,2019,Paperback,2566
+848,Zak George's Dog Training Revolution,Zak George,2016,Paperback,7934
+849,I Spy Letters,Jean Marzollo,2012,Paperback,3323
+850,"Official GRE Super Power Pack, Second Edition",Educational Testing Service,2017,Paperback,2021
+851,Hide-and-Seek at the Construction Site,,2019,Board book,1754
+852,Conspirators' Hierarchy,,2016,Paperback,823
+853,How to Be an Antiracist,Ibram X. Kendi,2019,Hardcover,25336
+854,W61TP - Tradition of Excellence Book 1 - Trumpet/Cornet,Bruce Pearson,2016,Paperback,847
+855,Draw the Circle,Mark Batterson,2012,Paperback,6128
+856,Wherever You Are,Nancy Tillman,2012,Board book,9033
+857,Moonology Oracle Cards,Yasmin Boland,2018,Cards,23648
+858,The Crossover (The Crossover Series),Kwame Alexander,2019,Paperback,3882
+859,Invincible Compendium Volume 1,Robert Kirkman,2011,Paperback,6120
+860,Lies Girls Believe,Dannah Gresh,2019,Paperback,2682
+861,"CSB Tony Evans Study Bible, Hardcover, Black Letter, Study Notes and Commentary, Articles, Videos, Charts, Easy-to-Read Bible Serif Type",Tony Evans,2019,Hardcover,5610
+862,"Spectrum 5th Grade Reading Comprehension Workbooks, Nonfiction and Fiction Passages, Summarizing Stories and Identifying Themes, Reading Comprehension and Critical Thinking Skills (174 pgs)",,2014,Paperback,1824
+863,Walk Two Moons (Trophy Newbery),Sharon Creech,2019,Paperback,4415
+864,"Fifth Edition, The Ultimate Guide to SAT Grammar",,2019,Paperback,545
+865,Knowledge Encyclopedia Human Body! (Knowledge Encyclopedias),DK,2017,Hardcover,5495
+866,Rules of Civility,Amor Towles,2012,Paperback,15398
+867,The Ultimate Unofficial Encyclopedia for Minecrafters,Megan Miller,2015,Hardcover,4297
+868,ACT Prep Black Book,Mike Barrett,2018,Paperback,1209
+869,The Gastric Sleeve Bariatric Cookbook,,2018,Paperback,5600
+870,Apples and Pumpkins,Anne Rockwell,2012,Paperback,1048
+871,The Storied Life of A. J. Fikry,Gabrielle Zevin,2014,Paperback,12009
+872,"CompTIA A+ Certification All-in-One Exam Guide, Tenth Edition (Exams 220-1001 & 220-1002)",Mike Meyers,2019,Hardcover,5615
+873,GUCCI,,2011,Hardcover,1177
+874,"NIV, Value Thinline Bible, Large Print, Leathersoft, Brown, Comfort Print",,2017,Imitation Leather,719
+875,"Sound Innovations for Concert Band, Bk 1",,2010,Paperback,544
+876,The Beach House (South Carolina Sunsets),Rachel Hanna,2019,Paperback,20698
+877,Humble Math - 100 Days of Timed Tests,Humble Math,2019,Paperback,5282
+878,Joy of Cooking,Irma S. Rombauer,2019,Hardcover,7859
+879,Floret Farm's Cut Flower Garden,Erin Benzakein,2017,Hardcover,4152
+880,Zero to One,Peter Thiel,2014,Hardcover,15819
+881,The Odyssey,Gareth Hinds,2010,Paperback,1446
+882,Where Do Diggers Sleep at Night? (Where Do...Series),Brianna Caplan Sayres,2014,Board book,13762
+883,Falling Upward,Richard Rohr,2011,Hardcover,3377
+884,Moana Little Golden Book (Disney Moana),Laura Hitchcock,2016,Hardcover,7886
+885,Fall (Bright Baby Touch and Feel),Roger Priddy,2010,Board book,872
+</div>
+    </body>
+</html>
